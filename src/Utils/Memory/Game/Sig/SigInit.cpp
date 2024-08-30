@@ -30,6 +30,10 @@ void SigInit::init2102() {
     Logger::debug("[Signatures] Loading sigs for 1.21.02");
 
     ADD_SIG("MinecraftPackets::createPacket", "40 53 48 83 EC ? 45 33 C0 48 8B D9 81 FA");
+
+    ADD_SIG("ItemInHandRenderer::renderBp", "F3 0F ? ? EB ? 0F 57 ? F3 41");
+    ADD_SIG("ItemInHandRenderer::fluxSwing", "E8 ? ? ? ? F3 0F ? ? ? ? ? ? F3 0F ? ? ? ? ? ? 48 8B ? F3 0F ? ? 48 8B");
+    ADD_SIG("ItemInHandRenderer::TapSwingAnim", "F3 44 ? ? ? ? ? ? ? 41 0F ? ? F3 0F ? ? ? ? C6 40 38 ? 48 8B ? ? 41 0F ? ? E8 ? ? ? ? 48 8B");
 }
 
 void SigInit::init2100() {

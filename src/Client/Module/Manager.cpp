@@ -63,11 +63,13 @@
 #include "Modules/AutoRQ/AutoRQ.hpp"
 #include "Modules/HitPing/HitPing.hpp"
 #include "Modules/InstantHurtAnimation/InstantHurtAnimation.hpp"
+#include "Modules/SwingAnimation/Swing.hpp"
 //#include "Modules/MovableChat/MovableChat.hpp"
 #include <algorithm>
 
 #include "Modules/ItemPhysics/ItemPhysics.hpp"
 #include "Modules/Crosshair/Crosshair.hpp"
+#include "Modules/HiveStat/HiveStat.hpp"
 
 namespace ModuleManager {
     std::unordered_map<size_t, Module*> moduleMap;
@@ -154,10 +156,14 @@ void ModuleManager::initialize() {
     addModule(new AutoRQ());
     addModule(new HitPing());
     addModule(new InstantHurtAnimation());
+
+    addModule(new Swing());
     //addModule(new MovableChat());
     //addModule(new CompactChat());
     addModule(new ItemPhysics());
     addModule(new Crosshair());
+    addModule(new HiveStat());
+    addModule(new Swing());
 
     EventHandler::registerListener(new GUIKeyListener("GuiKeyListener"));
     EventHandler::registerListener(new DiscordRPCListener("DiscordRPC"));
@@ -166,6 +172,7 @@ void ModuleManager::initialize() {
     EventHandler::registerListener(new CentreCursorListener("CentreCursor"));
     EventHandler::registerListener(new rgbListener("RGB Controller"));
     EventHandler::registerListener(new TextAliasListener("TextAlias"));
+    EventHandler::registerListener(new HiveModeCatcherListener("HiveModeCatcher"));
 
     initialized = true;
 }
