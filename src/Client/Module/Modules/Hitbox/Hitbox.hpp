@@ -29,6 +29,7 @@ public:
     void defaultConfig() override {
         if (settings.getSettingByName<std::string>("color") == nullptr)
             settings.addSetting("color", (std::string) "FFFFFF");
+        if (settings.getSettingByName<bool>("esp") == nullptr) settings.addSetting("esp", false);
         if (settings.getSettingByName<bool>("color_rgb") == nullptr) settings.addSetting("color_rgb", false);
         if (settings.getSettingByName<float>("colorOpacity") == nullptr) settings.addSetting("colorOpacity", 0.6f);
         if (settings.getSettingByName<float>("thickness") == nullptr) settings.addSetting("thickness", 1.1f);
@@ -93,6 +94,17 @@ public:
         FlarialGUI::ColorPickerWindow(0, settings.getSettingByName<std::string>("color")->value,
                                       settings.getSettingByName<float>("colorOpacity")->value,
                                       settings.getSettingByName<bool>("color_rgb")->value);
+
+
+
+        y += Constraints::SpacingConstraint(0.35, textWidth);
+
+        if (FlarialGUI::Toggle(1, x, y, this->settings.getSettingByName<bool>(
+                "esp")->value))
+            this->settings.getSettingByName<bool>("esp")->value = !this->settings.getSettingByName<bool>(
+                    "esp")->value;
+
+
 
     }
 

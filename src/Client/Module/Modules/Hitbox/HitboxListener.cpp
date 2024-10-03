@@ -12,9 +12,13 @@ void HitboxListener::onSetupAndRender(SetupAndRenderEvent &event) {
         if (ent != nullptr && ent != player /*&& ent->isPlayer() && ent->hasCategory(ActorCategory::Player)*/) {
             float dist = player->getPosition()->dist(*ent->getPosition());
             // This may let through some entites
-            if (!ent->isValidAABB() || dist > 30 || !player->canSee(*ent) ||
-                ent->getActorFlag(ActorFlags::FLAG_INVISIBLE))
-                continue;
+
+
+            if(!module->settings.getSettingByName<bool>("esp")->value) {
+                if (!ent->isValidAABB() || dist > 30 || !player->canSee(*ent) ||
+                    ent->getActorFlag(ActorFlags::FLAG_INVISIBLE))
+                    continue;
+            }
 
             float mod = 0.f;
 

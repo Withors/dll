@@ -33,6 +33,9 @@
 #include <shared_mutex>
 
 class HiveStatListener : public Listener {
+
+
+
     Module *module;
     std::vector<std::pair<std::string, Hive::PlayerStats>> playerStatsList;
     std::vector<std::string> queueList;
@@ -40,6 +43,7 @@ class HiveStatListener : public Listener {
     std::condition_variable_any queueCondition;
     std::thread fetchThread;
     bool stopThread = false;
+    bool renderOverlay = true;
 
     void fetchPlayerStats(const std::string& playerName) {
 
@@ -76,7 +80,7 @@ class HiveStatListener : public Listener {
     }
 
     void onRender(RenderEvent &event) override {
-        if(!module->isEnabled()) return;
+        if(!renderOverlay) return;
         std::string cg = HiveModeCatcherListener::currentGame;
 
         size_t dashPos = cg.find('-');
@@ -210,8 +214,8 @@ class HiveStatListener : public Listener {
 
         if (event.getKey() == Utils::getStringAsKey(module->settings.getSettingByName<std::string>("Overlay")->value) &&
             static_cast<ActionType>(event.getAction()) == ActionType::Released) {
-            module->setEnabled(!module->isEnabled());
-            if(module->isEnabled()){
+            renderOverlay = !renderOverlay;
+            if(renderOverlay){
                 playerStatsList.clear();
                 queueList.clear();
             }
